@@ -1,0 +1,52 @@
+<div class="py-5">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <span class="anchor" id="formLogin"></span>
+
+      <!-- form card login -->
+      <div class="card rounded-1">
+        <div class="card-header">
+          <h3 class="mb-0">SIGN UP</h3>
+        </div>
+        <div class="card-body">
+          <form #signUpForm="ngForm"(ngSubmit)="signUpForm.valid &#038;&#038; onSubmit(signUpForm)">
+            <label>Name</label>
+            <input type="text" #name="ngModel" [(ngModel)]="userService.selectedUser.name" name="name" placeholder="Name" size="75px"
+            required  [ngClass]="{'invalid-textbox' :signUpForm.submitted &#038;&#038; !name.valid }">
+            <div *ngIf="signUpForm.submitted &#038;&#038; !name.valid">
+              <label class="validation-message">This field is required.</label>
+            </div>
+            <br>
+            <label>Email</label>
+            <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Email" size="75px"
+            required [pattern]="emailRegex"  [ngClass]="{'invalid-textbox' :signUpForm.submitted &#038;&#038; !email.valid }">
+            <div *ngIf="signUpForm.submitted &#038;&#038; email.errors">
+              <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
+              <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
+            </div>
+            <br>
+            <label>Password</label>
+  
+            <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="Password" size="75px"
+            minlength="4" required [ngClass]="{'invalid-textbox' :signUpForm.submitted &#038;&#038; !password.valid }">
+            <div *ngIf="signUpForm.submitted &#038;&#038; password.errors">
+               <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
+               <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 4 characters.</label>
+            </div>
+            <br>
+            <input type="submit" class="btn btn-secondary"  value="Sign Up">
+          </form>
+        </div>
+        <!-- /form card login -->
+      </div>
+    </div>
+  </div>
+
+<div class="success" *ngIf="showSucessMessage">
+ <div style="margin-left: 320px;">saved successfully</div>
+</div>
+
+<!-- Error message -->
+<div class="alert" *ngIf="serverErrorMessages">
+  {{serverErrorMessages}}
+</div>

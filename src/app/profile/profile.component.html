@@ -1,0 +1,115 @@
+<div class="container py-3">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>
+                UpComing Events
+            </h2>
+        </div>
+            
+        <div class="col ml-auto text-right">
+            <button type="button" class="btn btn-outline-success"
+            (click)="onAddPost()">
+                <i class="fa fa-plus"></i> Add Event
+            </button>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-md-4" *ngFor="let item of employees">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">Event Name:<strong>{{item.position}}</strong></h4>
+                    <h6 class="card-subtitle">Organizers Name:{{item.name}}</h6>
+                    
+                    <p class="-text border-top pt-2 mt-3">
+                        Description: <strong>{{item.posts}}</strong>
+                        
+                    </p>
+                    <p class="card-text border-top pt-2 mt-3">
+                        Date: {{item.date}}
+                        
+                    </p>
+                    <p class="card-text border-top pt-2 mt-3">
+                        Date of event: <strong>{{item.datefinal}}</strong>
+                        
+                    </p>
+                    <p class="card-text border-top pt-2 mt-3">
+                        venue: <strong>{{item.venue}}</strong>
+                        
+                    </p>
+                    <p class="card-text border-top pt-2 mt-3">
+                        details: <strong>{{item.details}}</strong>
+                        
+                    </p>
+                    <button type="button" class="btn btn-outline-primary mr-2"
+                        (click)="onEditPost(item)">Edit</button>
+                    <button type="button" class="btn btn-outline-danger"
+                        (click)="onDeletePost(item._id)">Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade show" [class.show]="showModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Add Post</h5>
+            <button (click)="onCloseModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
+        <form [formGroup]="empForm" (ngSubmit)="onEmpSubmit()"> 
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Organizers Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                    <small *ngIf="!empForm.get('name').valid && empForm.get('name').touched" class="form-text text-danger">Please Enter Name.</small>
+                </div>
+                
+                <div class="form-group">
+                    <label>Event Name</label>
+                    <input type="text" class="form-control" formControlName="position">
+                    <small *ngIf="!empForm.get('position').valid && empForm.get('position').touched" class="form-text text-danger">Please Enter Event Name.</small>
+                </div>
+                
+                <div class="form-group">
+                    <label>Event Description</label>
+                    <input type="text" class="form-control" formControlName="posts">
+                    <small *ngIf="!empForm.get('posts').valid && empForm.get('posts').touched" class="form-text text-danger">Please Enter Description.</small>
+                </div>
+                <div class="form-group">
+                    <label>Event Date</label>
+                    <input type="date" class="form-control" formControlName="datefinal">
+                    <small *ngIf="!empForm.get('datefinal').valid && empForm.get('datefinal').touched" class="form-text text-danger">Please Enter Name.</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Venue</label>
+                    <input type="text" class="form-control" formControlName="venue">
+                    <small *ngIf="!empForm.get('venue').valid && empForm.get('venue').touched" class="form-text text-danger">Please Enter Name.</small>
+                </div>
+
+                <div class="form-group">
+                    <label><details></details></label>
+                    <input type="text" class="form-control" formControlName="details">
+                    <small *ngIf="!empForm.get('details').valid && empForm.get('details').touched" class="form-text text-danger">Please Enter Name.</small>
+                </div>
+                
+                
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="onCloseModal()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
